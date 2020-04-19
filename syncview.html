@@ -55,7 +55,8 @@
 
     </div>
     <center><button onclick = "signinUsingGoogleBtn()" id="signupBtn" style="display:none" class="w3-btn w3-lime">Sign In using Google </button><h1 id="test"></h1></center>
-    <div class="col-sm-4 col-xs-12" id="chatbox" style="border:2px;display:none;">
+    <input class="w3-input" type="text" placeholder="Enter Code" style="width:100%;" id="chatRoomCode"><div id="showJoinButton"></div> 
+  <div class="col-sm-4 col-xs-12" id="chatbox" style="border:2px;display:none;">
         
         <div class="w3-container w3-green">   
         <p id="signedUpUserName"></p><h5 onclick="signout()">Logout</h5>
@@ -72,6 +73,7 @@
 
         <h4 id="uidHidden" hidden></h4>
         <h4 id="photoUrlHidden" hidden></h4>
+        <h4 id="chatRoomCodeHidden"></h4>
 
     </div> 
 
@@ -283,16 +285,30 @@ function saveVideoId(){
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     if (user != null) {
-       uid = user.uid; 
-       document.getElementById("uidHidden").innerHTML=uid;
-       document.getElementById("photoUrlHidden").innerHTML=user.photoURL;
-       document.getElementById("chatbox").style.display="block"; 
-       document.getElementById("signupBtn").style.display="none";
-       document.getElementById("signedUpUserName").innerHTML = user.displayName;
-       document.getElementById("userImg").src = user.photoURL;
+      
+      document.getElementById("chatRoomCode").style.display="block";
+      var buttonEnterChatRoom  =  document.createElement("button");
+      var btnText = document.createTextNode("JOIN");
+      buttonEnterChatRoom.appendChild(btnText);
+      document.getElementById("showJoinButton").appendChild(buttonEnterChatRoom);
+      
+      buttonEnterChatRoom.onclick = function(){
+      
+      document.getElementById("chatRoomCode").style.display="none"; 
+      buttonEnterChatRoom.style.display="none";  
+      document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;  
+      uid = user.uid; 
+      document.getElementById("uidHidden").innerHTML=uid;
+      document.getElementById("photoUrlHidden").innerHTML=user.photoURL;
+      document.getElementById("chatbox").style.display="block"; 
+      document.getElementById("signupBtn").style.display="none";
+      document.getElementById("signedUpUserName").innerHTML = user.displayName;
+      document.getElementById("userImg").src = user.photoURL;
+        }
       }
   } else {
     document.getElementById("signupBtn").style.display="block";  
+    document.getElementById("chatRoomCode").style.display="none";
     document.getElementById("chatbox").style.display="none";
     //document.getElementById("name").innerHTML="Hi User<hr>";
   }
