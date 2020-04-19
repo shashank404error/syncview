@@ -243,7 +243,43 @@ function saveChatToDb(chatText){
   var keyTimeStamp = Date.now();
   return firebase.database().ref('chats/'+chatRoomId+'/'+keyTimeStamp).update(updates).then(function(){
        document.getElementById("chatTextTxtBox").value="";
-       firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
+  });
+
+}
+      
+function saveVideoId(){
+  var vidIdTxtBox = document.getElementById("getVidID").value;
+  var updates = {
+    vidIdDb: vidIdTxtBox
+  };
+  return firebase.database().ref('YTVidId/').update(updates);
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    if (user != null) {
+      
+      document.getElementById("chatRoomCode").style.display="block";
+      var buttonEnterChatRoom  =  document.createElement("button");
+      var btnText = document.createTextNode("JOIN");
+      buttonEnterChatRoom.appendChild(btnText);
+      document.getElementById("showJoinButton").appendChild(buttonEnterChatRoom);
+      
+      buttonEnterChatRoom.onclick = function(){  
+        
+          document.getElementById("chatRoomCode").style.display="none"; 
+          buttonEnterChatRoom.style.display="none";  
+          document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;  
+          uid = user.uid; 
+          document.getElementById("uidHidden").innerHTML=uid;
+          document.getElementById("photoUrlHidden").innerHTML=user.photoURL;
+          document.getElementById("chatbox").style.display="block"; 
+          document.getElementById("signupBtn").style.display="none";
+          document.getElementById("signedUpUserName").innerHTML = user.displayName;
+          document.getElementById("userImg").src = user.photoURL;
+        
+      //load chats
+           firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
             snapshot.forEach(function(childSnapshot) {
              var childKey = childSnapshot.key;
@@ -273,40 +309,6 @@ function saveChatToDb(chatText){
              document.getElementById('loadChatMetaDiv').scrollTop = 9999999;
            });
         });
-  });
-
-}
-      
-function saveVideoId(){
-  var vidIdTxtBox = document.getElementById("getVidID").value;
-  var updates = {
-    vidIdDb: vidIdTxtBox
-  };
-  return firebase.database().ref('YTVidId/').update(updates);
-}
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    if (user != null) {
-      
-      document.getElementById("chatRoomCode").style.display="block";
-      var buttonEnterChatRoom  =  document.createElement("button");
-      var btnText = document.createTextNode("JOIN");
-      buttonEnterChatRoom.appendChild(btnText);
-      document.getElementById("showJoinButton").appendChild(buttonEnterChatRoom);
-      
-      buttonEnterChatRoom.onclick = function(){
-      
-      document.getElementById("chatRoomCode").style.display="none"; 
-      buttonEnterChatRoom.style.display="none";  
-      document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;  
-      uid = user.uid; 
-      document.getElementById("uidHidden").innerHTML=uid;
-      document.getElementById("photoUrlHidden").innerHTML=user.photoURL;
-      document.getElementById("chatbox").style.display="block"; 
-      document.getElementById("signupBtn").style.display="none";
-      document.getElementById("signedUpUserName").innerHTML = user.displayName;
-      document.getElementById("userImg").src = user.photoURL;
         }
       }
   } else {
