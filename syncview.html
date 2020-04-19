@@ -90,6 +90,26 @@
       
     <script>     
      
+   // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDNpFvstrlSIPe7LY_1m-NMQ9eBnTTckJ8",
+    authDomain: "syncview-2dd0b.firebaseapp.com",
+    databaseURL: "https://syncview-2dd0b.firebaseio.com",
+    projectId: "syncview-2dd0b",
+    storageBucket: "syncview-2dd0b.appspot.com",
+    messagingSenderId: "202062602011",
+    appId: "1:202062602011:web:64bf0bfa3e9c2bde1cbdbe",
+    measurementId: "G-5FDFQDWFE5"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  
+      ///load videoID
+  firebase.database().ref('YTVidId/').on('value', function(snapshot) {
+      var vidIdYT = snapshot.val().vidIdDb; 
+ //youtube functionalities
+       
       var vidIdTxtBox = 'frp4vfciLbA';
       var tag = document.createElement('script');
 
@@ -117,7 +137,7 @@ function onPlayerReady(event) {
       }   
 
    var done = false;
-      function onPlayerStateChange(event) {
+   function onPlayerStateChange(event) {
       
         if (event.data == YT.PlayerState.PLAYING && !done) {
          var newMax = player.getDuration();   
@@ -136,31 +156,15 @@ function onPlayerReady(event) {
       function pauseVideo() {
         player.pauseVideo();
       }
-
-      
-      
-   // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDNpFvstrlSIPe7LY_1m-NMQ9eBnTTckJ8",
-    authDomain: "syncview-2dd0b.firebaseapp.com",
-    databaseURL: "https://syncview-2dd0b.firebaseio.com",
-    projectId: "syncview-2dd0b",
-    storageBucket: "syncview-2dd0b.appspot.com",
-    messagingSenderId: "202062602011",
-    appId: "1:202062602011:web:64bf0bfa3e9c2bde1cbdbe",
-    measurementId: "G-5FDFQDWFE5"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-      //function getData(){
-       //document.getElementById("timeLine1").innerHTML="Hi bro";
+     
+    //other loading task
       var starCountRef = firebase.database().ref('youtubeSync/');
       starCountRef.on('value', function(snapshot) {
         document.getElementById("timeLine1").value=snapshot.val().timeLine;
         seekVideo(snapshot.val().timeLine);
         document.getElementById("vol").value = snapshot.val().timeLine;
       });
+    
       firebase.database().ref('youtubeSync/playNpause/').on('value', function(snapshot) {
         if(snapshot.val().vidState=="true"){
             playVideo();
@@ -169,14 +173,9 @@ function onPlayerReady(event) {
             pauseVideo();
         }
       });
-
-      firebase.database().ref('YTVidId/').on('value', function(snapshot) {
-      var vidIdYT = snapshot.val().vidIdDb; 
- 
-      });
         
       //Load chats
-        firebase.database().ref('chats/').on('value', function(snapshot) {
+       firebase.database().ref('chats/').on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
             snapshot.forEach(function(childSnapshot) {
              var childKey = childSnapshot.key;
@@ -206,7 +205,8 @@ function onPlayerReady(event) {
              document.getElementById('loadChatMetaDiv').scrollTop = 9999999;
            });
         });
-    //  }
+    //end of other loading task
+    });
 
     function updateDatabase(a){
     var updates = {
