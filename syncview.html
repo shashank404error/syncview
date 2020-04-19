@@ -21,10 +21,11 @@
 <br>
 <div class="row">
     <div class="col-sm-8 col-xs-8">
-<input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
+      <input class="w3-input" type="text" placeholder="Enter Code" style="width:100%;" id="chatRoomCode">
+<!---<input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">---->
     </div>
-    <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal" onclick="runTheProg()">SYNC</button>
+    <div class="col-sm-4 col-xs-4" id="showJoinButton">
+       <!-- <button class="w3-button w3-teal" onclick="runTheProg()">SYNC</button>-->
     </div>    
 </div> 
 
@@ -55,7 +56,6 @@
 
     </div>
     <center><button onclick = "signinUsingGoogleBtn()" id="signupBtn" style="display:none" class="w3-btn w3-lime">Sign In using Google </button><h1 id="test"></h1></center>
-    <input class="w3-input" type="text" placeholder="Enter Code" style="width:100%;" id="chatRoomCode"><div id="showJoinButton"></div> 
   <div class="col-sm-4 col-xs-12" id="chatbox" style="border:2px;display:none;">
         
         <div class="w3-container w3-green">   
