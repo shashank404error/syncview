@@ -90,7 +90,6 @@
       <script>
 
 
-var getVidID = 'z3wdu5rY1sg';
 var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
@@ -100,6 +99,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 
 function onYouTubeIframeAPIReady() {
+  firebase.database().ref('YTVidId/').on('value', function(snapshot) {
+    var getVidID = snapshot.val().vidIdDb;
+  });
         player = new YT.Player('player', {
           height: '390',
           width: '100%',
