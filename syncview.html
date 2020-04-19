@@ -179,36 +179,7 @@ function onPlayerReady(event) {
         
       //Load chats
        //chatRoomIDProvided =  document.getElementById("chatRoomCodeHidden").textContent;
-       firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
-            document.getElementById("loadChatMetaDiv").innerHTML = "";
-            snapshot.forEach(function(childSnapshot) {
-             var childKey = childSnapshot.key;
-             var childData = childSnapshot.val();
-             
-             var chatDiv  =  document.createElement("h6");
-             var senderImg  =  document.createElement("img");
-             senderImg.src = childData.userProfilePic;
-             senderImg.width="35";
-             senderImg.height="35";
-             senderImg.classList.add("w3-round-xxlarge");
-             senderImg.classList.add("w3-margin-right");
-
-             var chatText = document.createTextNode(childData.chat);
-             chatDiv.classList.add("w3-padding");
-             chatDiv.classList.add("w3-round-large");
-             if(childData.uid==document.getElementById("uidHidden").textContent){
-               //chatText.classList.add("w3-pale-green");
-               chatDiv.classList.add("w3-right-align");
-             }
-             else{
-                 chatDiv.appendChild(senderImg);
-             }
-             chatDiv.appendChild(chatText);
-
-             document.getElementById("loadChatMetaDiv").appendChild(chatDiv);
-             document.getElementById('loadChatMetaDiv').scrollTop = 9999999;
-           });
-        });
+       
     //end of other loading task
 
     function updateDatabase(a){
@@ -272,6 +243,36 @@ function saveChatToDb(chatText){
   var keyTimeStamp = Date.now();
   return firebase.database().ref('chats/'+chatRoomId+'/'+keyTimeStamp).update(updates).then(function(){
        document.getElementById("chatTextTxtBox").value="";
+       firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
+            document.getElementById("loadChatMetaDiv").innerHTML = "";
+            snapshot.forEach(function(childSnapshot) {
+             var childKey = childSnapshot.key;
+             var childData = childSnapshot.val();
+             
+             var chatDiv  =  document.createElement("h6");
+             var senderImg  =  document.createElement("img");
+             senderImg.src = childData.userProfilePic;
+             senderImg.width="35";
+             senderImg.height="35";
+             senderImg.classList.add("w3-round-xxlarge");
+             senderImg.classList.add("w3-margin-right");
+
+             var chatText = document.createTextNode(childData.chat);
+             chatDiv.classList.add("w3-padding");
+             chatDiv.classList.add("w3-round-large");
+             if(childData.uid==document.getElementById("uidHidden").textContent){
+               //chatText.classList.add("w3-pale-green");
+               chatDiv.classList.add("w3-right-align");
+             }
+             else{
+                 chatDiv.appendChild(senderImg);
+             }
+             chatDiv.appendChild(chatText);
+
+             document.getElementById("loadChatMetaDiv").appendChild(chatDiv);
+             document.getElementById('loadChatMetaDiv').scrollTop = 9999999;
+           });
+        });
   });
 
 }
