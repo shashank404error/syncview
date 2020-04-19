@@ -108,6 +108,7 @@
       ///load videoID
   firebase.database().ref('YTVidId/').on('value', function(snapshot) {
       var vidIdYT = snapshot.val().vidIdDb; 
+    });
  //youtube functionalities
        
       var vidIdTxtBox = 'frp4vfciLbA';
@@ -206,7 +207,6 @@ function onPlayerReady(event) {
            });
         });
     //end of other loading task
-    });
 
     function updateDatabase(a){
     var updates = {
