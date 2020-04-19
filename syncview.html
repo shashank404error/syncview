@@ -96,6 +96,7 @@
     document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;
     document.getElementById("chatbox").style.display="none"; 
     document.getElementById("signupBtn").style.display="none";
+    saveChatToDb("Joined");
     checkSignUpOrNot();
   }
       
@@ -312,37 +313,6 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("userImg").src = user.photoURL;  
       
           document.getElementById("chatRoomCode").style.display="none";
-          
-    firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").innerHTML).on('value', function(snapshot) {
-            document.getElementById("loadChatMetaDiv").innerHTML = "";
-            snapshot.forEach(function(childSnapshot) {
-             var childKey = childSnapshot.key;
-             var childData = childSnapshot.val();
-             
-             var chatDiv  =  document.createElement("h6");
-             var senderImg  =  document.createElement("img");
-             senderImg.src = childData.userProfilePic;
-             senderImg.width="35";
-             senderImg.height="35";
-             senderImg.classList.add("w3-round-xxlarge");
-             senderImg.classList.add("w3-margin-right");
-
-             var chatText = document.createTextNode(childData.chat);
-             chatDiv.classList.add("w3-padding");
-             chatDiv.classList.add("w3-round-large");
-             if(childData.uid==document.getElementById("uidHidden").textContent){
-               //chatText.classList.add("w3-pale-green");
-               chatDiv.classList.add("w3-right-align");
-             }
-             else{
-                 chatDiv.appendChild(senderImg);
-             }
-             chatDiv.appendChild(chatText);
-
-             document.getElementById("loadChatMetaDiv").appendChild(chatDiv);
-             document.getElementById('loadChatMetaDiv').scrollTop = 9999999;
-           });
-        });
            
         
       }
