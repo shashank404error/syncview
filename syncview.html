@@ -24,7 +24,7 @@
 <input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
     </div>
     <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal" onclick="saveVideoId()">SYNC</button>
+        <button class="w3-button w3-teal" onclick="runTheProg()">SYNC</button>
     </div>    
 </div> 
 
@@ -89,6 +89,9 @@
   <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase.js"></script>
       
     <script>     
+      
+      function runTheProg(){
+      var vidIdTxtBox = document.getElementById("getVidID").value
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -101,7 +104,7 @@
          player = new YT.Player('player', {
           height: '390',
           width: '100%',
-          videoId: 'frp4vfciLbA',
+          videoId: vidIdTxtBox,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -227,7 +230,9 @@ function onPlayerReady(event) {
 
     firebase.database().ref('youtubeSync/playNpause/').update(updates);
     }
-
+      }
+//end of runTheProg      
+      
     //signin using google
 function signinUsingGoogleBtn(){  
  
