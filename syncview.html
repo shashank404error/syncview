@@ -271,7 +271,7 @@ function saveVideoId(){
   var updates = {
     vidIdDb: vidIdTxtBox
   };
-  return firebase.database().ref('YTVidId/').update(updates)
+  return firebase.database().ref('YTVidId/').update(updates);
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
