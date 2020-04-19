@@ -90,7 +90,7 @@
       <script>
 
 
-var getVidID = document.getElementById("getVidID").value;
+var getVidID = 'HpcKDSIFXDw';
 var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
@@ -103,7 +103,7 @@ function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '390',
           width: '100%',
-          videoId: 'HpcKDSIFXDw',
+          videoId: getVidID,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
