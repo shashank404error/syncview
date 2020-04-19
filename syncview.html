@@ -97,7 +97,8 @@
     document.getElementById("chatbox").style.display="none"; 
     document.getElementById("signupBtn").style.display="none";
     checkSignUpOrNot();
-    saveChatToDb("Joined");
+    var userNameJoined = document.getElementById("signedUpUserName").innerHTML;
+    saveChatToDb(userNameJoined+" Joined");
    
   }
       
