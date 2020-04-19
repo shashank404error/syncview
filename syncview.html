@@ -158,7 +158,9 @@ function onPlayerReady(event) {
       });
 
       function onYouTubeIframeAPIReady() {
-         var vidIdYT  = 'tionpZAVPd4';
+        firebase.database().ref('chats/').on('value', function(snapshot) {
+        var vidIdYT  = snapshot.val().vidIdDb;
+        });
          player = new YT.Player('player', {
           height: '390',
           width: '100%',
