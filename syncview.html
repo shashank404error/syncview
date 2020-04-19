@@ -96,8 +96,9 @@
     document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;
     document.getElementById("chatbox").style.display="none"; 
     document.getElementById("signupBtn").style.display="none";
-    saveChatToDb("Joined");
     checkSignUpOrNot();
+    saveChatToDb("Joined");
+   
   }
       
    // Your web app's Firebase configuration
