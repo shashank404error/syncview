@@ -314,7 +314,8 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("signupBtn").style.display="none";
           document.getElementById("signedUpUserName").innerHTML = user.displayName;
           document.getElementById("userImg").src = user.photoURL;  
-          saveChatToDb(user.displayName+" Joined");     
+          saveChatToDb(" Joined"); 
+          
            }
         
       }
