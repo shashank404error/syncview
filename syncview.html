@@ -24,7 +24,7 @@
 <input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
     </div>
     <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal" onclick="playVidOnClick('LW8Rfh6TzGg')">SYNC</button>
+        <button class="w3-button w3-teal" onclick="saveVideoId()">SYNC</button>
     </div>    
 </div> 
 
@@ -264,6 +264,14 @@ var userPhotoURL = document.getElementById("photoUrlHidden").textContent;
        document.getElementById("chatTextTxtBox").value="";
   });
 
+}
+      
+function saveVideoId(){
+  var vidIdTxtBox = document.getElementById("getVidID").value;
+  var updates = {
+    vidIdDb: vidIdTxtBox
+  };
+  return firebase.database().ref('YTVidId/').update(updates)
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
