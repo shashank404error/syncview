@@ -73,7 +73,7 @@
 
         <h4 id="uidHidden" hidden></h4>
         <h4 id="photoUrlHidden" hidden></h4>
-        <h4 id="chatRoomCodeHidden"></h4>
+        <h4 id="chatRoomCodeHidden" hidden></h4>
 
     </div> 
 
@@ -178,7 +178,8 @@ function onPlayerReady(event) {
       });
         
       //Load chats
-       firebase.database().ref('chats/').on('value', function(snapshot) {
+       chatRoomIDProvided =  document.getElementById("chatRoomCodeHidden").textContent;
+       firebase.database().ref('chats/'+chatRoomIDProvided).on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
             snapshot.forEach(function(childSnapshot) {
              var childKey = childSnapshot.key;
@@ -260,15 +261,16 @@ firebase.auth().signInWithRedirect(provider);
 
 function saveChatToDb(chatText){
  var chat = document.getElementById("chatTextTxtBox").value;
-var userUid = document.getElementById("uidHidden").textContent;
-var userPhotoURL = document.getElementById("photoUrlHidden").textContent;
+ var userUid = document.getElementById("uidHidden").textContent;
+ var chatRoomId = document.getElementById("chatRoomCodeHidden").textContent;
+ var userPhotoURL = document.getElementById("photoUrlHidden").textContent;
    var updates = {
     uid: userUid,
     chat: chat,
     userProfilePic: userPhotoURL
   };
   var keyTimeStamp = Date.now();
-  return firebase.database().ref('chats/'+keyTimeStamp).update(updates).then(function(){
+  return firebase.database().ref('chats/'+chatRoomId+'/'+keyTimeStamp).update(updates).then(function(){
        document.getElementById("chatTextTxtBox").value="";
   });
 
