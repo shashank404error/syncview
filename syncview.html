@@ -79,7 +79,7 @@
 
   
 
-<!---<script src="https://www.youtube.com/iframe_api"></script>------->
+<script src="https://www.youtube.com/iframe_api"></script>
 <!---<iframe width="727" height="409" src="https://www.youtube.com/embed/GXKI84KKVI8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>--->
 
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
@@ -90,13 +90,13 @@
       <script>
 
 
-var tag = document.createElement('script');
+/**var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var player;
+var player;**/
 
 function onPlayerReady(event) {
     if(document.getElementById("timeLine1").value!="")
@@ -159,9 +159,13 @@ function onPlayerReady(event) {
 
       firebase.database().ref('YTVidId/').on('value', function(snapshot) {
       var vidIdYT = snapshot.val().vidIdDb; 
-      var fileref=document.createElement('script');
-        fileref.setAttribute("type","text/javascript");
-        fileref.setAttribute("src", "https://www.youtube.com/iframe_api");  
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
       function onYouTubeIframeAPIReady() {
          player = new YT.Player('player', {
           height: '390',
