@@ -98,19 +98,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
 
-function onYouTubeIframeAPIReady() {
-         var vidIdYT  = 'tionpZAVPd4';
-         player = new YT.Player('player', {
-          height: '390',
-          width: '100%',
-          videoId: vidIdYT,
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });  
-       }
-
 function onPlayerReady(event) {
     if(document.getElementById("timeLine1").value!="")
         event.target.playVideo();
@@ -170,6 +157,19 @@ function onPlayerReady(event) {
         }
       });
 
+      function onYouTubeIframeAPIReady() {
+         var vidIdYT  = 'tionpZAVPd4';
+         player = new YT.Player('player', {
+          height: '390',
+          width: '100%',
+          videoId: vidIdYT,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });  
+       }  
+        
       //Load chats
         firebase.database().ref('chats/').on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
