@@ -24,7 +24,7 @@
 <input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
     </div>
     <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal" onclick="saveVideoId()">SYNC</button>
+        <button class="w3-button w3-teal" onclick="onYouTubeIframeAPIReady()">SYNC</button>
     </div>    
 </div> 
 
@@ -158,9 +158,7 @@ function onPlayerReady(event) {
       });
 
       function onYouTubeIframeAPIReady() {
-        firebase.database().ref('chats/').on('value', function(snapshot) {
-        var vidIdYT  = snapshot.val().vidIdDb;
-        });
+        var vidIdYT = document.getElementById("getVidID").value;
          player = new YT.Player('player', {
           height: '390',
           width: '100%',
