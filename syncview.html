@@ -308,7 +308,8 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("chatbox").style.display="block"; 
           document.getElementById("signupBtn").style.display="none";
           document.getElementById("signedUpUserName").innerHTML = user.displayName;
-          document.getElementById("userImg").src = user.photoURL;      
+          document.getElementById("userImg").src = user.photoURL;  
+          saveChatToDb(user.displayName+" Joined");     
            }
         
       }
