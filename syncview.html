@@ -279,7 +279,7 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("userImg").src = user.photoURL;
         
       //load chats
-           firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
+           firebase.database().ref('chats/'+document.getElementById("chatRoomCode").value).on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
             snapshot.forEach(function(childSnapshot) {
              var childKey = childSnapshot.key;
