@@ -178,8 +178,8 @@ function onPlayerReady(event) {
       });
         
       //Load chats
-       chatRoomIDProvided =  document.getElementById("chatRoomCodeHidden").textContent;
-       firebase.database().ref('chats/'+chatRoomIDProvided).on('value', function(snapshot) {
+       //chatRoomIDProvided =  document.getElementById("chatRoomCodeHidden").textContent;
+       firebase.database().ref('chats/'+document.getElementById("chatRoomCodeHidden").textContent).on('value', function(snapshot) {
             document.getElementById("loadChatMetaDiv").innerHTML = "";
             snapshot.forEach(function(childSnapshot) {
              var childKey = childSnapshot.key;
