@@ -25,7 +25,7 @@
 <!---<input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">---->
     </div>
     <div class="col-sm-4 col-xs-4" id="showJoinButton">
-       <!-- <button class="w3-button w3-teal" onclick="runTheProg()">SYNC</button>-->
+       <button class="w3-button w3-teal" onclick="setTheChatRoomCode()">JOIN</button>
     </div>    
 </div> 
 
@@ -92,6 +92,13 @@
       
     <script>     
      
+  function setTheChatRoomCode(){
+    document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;
+    document.getElementById("chatbox").style.display="none"; 
+    document.getElementById("signupBtn").style.display="none";
+    checkSignUpOrNot();
+  }
+      
    // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDNpFvstrlSIPe7LY_1m-NMQ9eBnTTckJ8",
@@ -292,21 +299,10 @@ function saveVideoId(){
   return firebase.database().ref('YTVidId/').update(updates);
 }
 
+function checkSignUpOrNot(){      
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    if (user != null) {
-      
-      document.getElementById("chatRoomCode").style.display="block";
-      var buttonEnterChatRoom  =  document.createElement("button");
-      var btnText = document.createTextNode("JOIN");
-      buttonEnterChatRoom.appendChild(btnText);
-      document.getElementById("showJoinButton").appendChild(buttonEnterChatRoom);
-      
-      buttonEnterChatRoom.onclick = function(){  
-      
-          document.getElementById("chatRoomCode").style.display="none"; 
-          buttonEnterChatRoom.style.display="none";  
-          document.getElementById("chatRoomCodeHidden").innerHTML=document.getElementById("chatRoomCode").value;  
+    if (user != null) {  
           uid = user.uid; 
           document.getElementById("uidHidden").innerHTML=uid;
           document.getElementById("photoUrlHidden").innerHTML=user.photoURL;
@@ -314,9 +310,10 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("signupBtn").style.display="none";
           document.getElementById("signedUpUserName").innerHTML = user.displayName;
           document.getElementById("userImg").src = user.photoURL;  
-          saveChatToDb(" Joined"); 
-          
-           }
+      
+          document.getElementById("chatRoomCode").style.display="none";
+    
+           
         
       }
   } else {
@@ -326,6 +323,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     //document.getElementById("name").innerHTML="Hi User<hr>";
   }
 });
+}
 
 function signout(){
   firebase.auth().signOut().then(function() {
