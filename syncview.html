@@ -98,20 +98,10 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
 
-function onYouTubeIframeAPIReady() {
-  firebase.database().ref('YTVidId/').on('value', function(snapshot) {
-    var getVidID = snapshot.val().vidIdDb;
-  });
-        player = new YT.Player('player', {
-          height: '390',
-          width: '100%',
-          videoId: getVidID,
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-}
+//function onYouTubeIframeAPIReady() {
+        
+       
+//}
 
 function onPlayerReady(event) {
     if(document.getElementById("timeLine1").value!="")
@@ -273,7 +263,17 @@ function saveVideoId(){
   var updates = {
     vidIdDb: vidIdTxtBox
   };
-  return firebase.database().ref('YTVidId/').update(updates);
+  return firebase.database().ref('YTVidId/').update(updates).then(function(){
+   player = new YT.Player('player', {
+          height: '390',
+          width: '100%',
+          videoId: 'oXzWDws_vK0',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+  });
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
