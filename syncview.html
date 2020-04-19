@@ -24,7 +24,7 @@
 <input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
     </div>
     <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal">SYNC</button>
+        <button class="w3-button w3-teal" onclick="playVidOnClick('LW8Rfh6TzGg')">SYNC</button>
     </div>    
 </div> 
 
@@ -99,17 +99,19 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player;
 
+function playVidOnClick(vidId){
 function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '390',
           width: '100%',
-          videoId: 'AZd7E5n8JYU',
+          videoId: vidId,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
         });
       }
+}
 
 function onPlayerReady(event) {
     if(document.getElementById("timeLine1").value!="")
