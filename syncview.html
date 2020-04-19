@@ -24,7 +24,7 @@
 <input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">
     </div>
     <div class="col-sm-4 col-xs-4">
-        <button class="w3-button w3-teal" onclick="onYouTubeIframeAPIReady()">SYNC</button>
+        <button class="w3-button w3-teal" onclick="saveVideoId()">SYNC</button>
     </div>    
 </div> 
 
@@ -79,7 +79,7 @@
 
   
 
-<script src="https://www.youtube.com/iframe_api"></script>
+<!---<script src="https://www.youtube.com/iframe_api"></script>------->
 <!---<iframe width="727" height="409" src="https://www.youtube.com/embed/GXKI84KKVI8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>--->
 
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
@@ -157,8 +157,12 @@ function onPlayerReady(event) {
         }
       });
 
+      firebase.database().ref('YTVidId/').on('value', function(snapshot) {
+      var vidIdYT = snapshot.val().vidIdDb; 
+      var fileref=document.createElement('script');
+        fileref.setAttribute("type","text/javascript");
+        fileref.setAttribute("src", "https://www.youtube.com/iframe_api");  
       function onYouTubeIframeAPIReady() {
-        var vidIdYT = document.getElementById("getVidID").value;
          player = new YT.Player('player', {
           height: '390',
           width: '100%',
@@ -169,6 +173,7 @@ function onPlayerReady(event) {
           }
         });  
        }  
+      });
         
       //Load chats
         firebase.database().ref('chats/').on('value', function(snapshot) {
