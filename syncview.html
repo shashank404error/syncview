@@ -24,8 +24,8 @@
       <input class="w3-input" type="text" placeholder="Enter Code" style="width:100%;display:none;" id="chatRoomCode">
 <!---<input class="w3-input w3-border" type="text" id="getVidID" placeholder="paste video ID" style="width:100%">---->
     </div>
-    <div class="col-sm-4 col-xs-4" id="showJoinButton" style="display:none">
-       <button class="w3-button w3-teal" onclick="setTheChatRoomCode()" >JOIN</button>
+    <div class="col-sm-4 col-xs-4" id="showJoinButton" style="display:none;">
+       <button class="w3-button w3-teal" onclick="setTheChatRoomCode()">JOIN</button>
     </div>    
 </div> 
 
@@ -312,7 +312,7 @@ firebase.auth().onAuthStateChanged(function(user) {
           document.getElementById("chatbox").style.display="block"; 
           document.getElementById("signupBtn").style.display="none";
           document.getElementById("signedUpUserName").innerHTML = user.displayName;
-          document.getElementById("userImg").src = user.photoURL;  
+          //document.getElementById("userImg").src = user.photoURL;  
       
           document.getElementById("chatRoomCode").style.display="block";
           document.getElementById("showJoinButton").style.display="block";
